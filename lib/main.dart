@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: darkColorScheme,
       ),
+      themeMode: ThemeMode.system, // 시스템의 테마를 따라간다. 본인의 스마트폰이 타크모드이면 타크모드가된다.
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
