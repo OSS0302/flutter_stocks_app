@@ -22,7 +22,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: darkColorScheme,
       ),
-      themeMode: ThemeMode.system, // 시스템의 테마를 따라간다. 본인의 스마트폰이 타크모드이면 타크모드가된다.
+      themeMode: ThemeMode.system,
+      // 시스템의 테마를 따라간다. 본인의 스마트폰이 타크모드이면 타크모드가된다.
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -71,6 +72,21 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
+      ),
+      bottomNavigationBar: NavigationBar(
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.explore),
+            label: 'Explore',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.comment),
+            label: 'Comment ',
+          ), NavigationDestination(
+            icon: Icon(Icons.bookmark),
+            label: 'Bookmark',
+          ),
+        ],
       ),
     );
   }
