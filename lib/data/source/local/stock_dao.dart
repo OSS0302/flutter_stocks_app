@@ -26,6 +26,9 @@ class StockDao {
     final List<CompanyListingEntity> companyListing = box.get(
         StockDao.companyListing,
         defaultValue: <CompanyListingEntity>[]); // key 를 던지면 dynmic으로 반환한다.
-    return companyListing;
+    return companyListing // 검색어 를 가지고 이름하고 상징 하고 비교해서 겹치는 게있으면 겹치는걸 리턴한다.
+    .where((e) => e.name.toLowerCase().contains(query.toLowerCase()) ||
+        query.toUpperCase() ==e.symbol)
+        .toList();
   }
 }
