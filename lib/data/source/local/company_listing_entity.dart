@@ -1,5 +1,6 @@
 import 'package:hive_flutter/adapters.dart';
 
+part 'company_listing_entity.g.dart';
 @HiveType(typeId: 0)
 class CompanyListingEntity extends HiveObject{
   @HiveField(0)
@@ -17,6 +18,4 @@ class CompanyListingEntity extends HiveObject{
    required this.exchange,
    required this.ipoDate,
   });
-
-
 }
