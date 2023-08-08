@@ -8,10 +8,10 @@ part 'company_listing.g.dart';
 @freezed
 class CompanyListing with _$CompanyListing {
   factory CompanyListing({
-    required String symbol,
-    required String name,
-    required String exchange,
-    required String ipoDate,
+    required String symbol, // 상징
+    required String name, // 이름
+    required String exchange, // 교환
+    required String ipoDate, // 날짜
 
   }) = _CompanyListing;
   
