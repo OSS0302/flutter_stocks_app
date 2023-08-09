@@ -1,18 +1,9 @@
-abstract class Result<T>{
-  factory Result.success(T data) = Success;
-  factory Result.error(Exception e) = Error;
-}
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Success<T> implements Result<T>{
-  // 성공시에는 T 데이터를 가진다.
-  final T data;
+part 'result.freezed.dart';
 
-  Success(this.data);
-}
-
-class Error<T> implements Result<T>{
- // 에러 exception e 가진다.
-  final Exception e;
-
-  Error(this.e);
+@freezed
+abstract class Result<T> with _$Result<T> {
+  const factory Result.success(T data) = Success;
+  const factory Result.error(Exception e) = Error;
 }
