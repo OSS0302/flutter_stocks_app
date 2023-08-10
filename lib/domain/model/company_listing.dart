@@ -11,6 +11,7 @@ class CompanyListing with _$CompanyListing {
     required String symbol, // 상징
     required String name, // 이름
     required String exchange, // 교환
+    required String assetType, // 교환
     required String ipoDate, // 날짜
 
   }) = _CompanyListing;

@@ -8,6 +8,7 @@ extension ToCompanyListing on CompanyListingEntity {
       symbol: symbol,
       name: name,
       exchange: exchange,
+      assetType: assetType,
       ipoDate: ipoDate,
     );
   }
@@ -20,6 +21,7 @@ extension ToCompanyListingEntity on CompanyListing {
       symbol: symbol,
       name: name,
       exchange: exchange,
+      assetType:assetType,
       ipoDate: ipoDate,
     );
   }

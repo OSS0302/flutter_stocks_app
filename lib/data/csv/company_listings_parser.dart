@@ -15,9 +15,12 @@ class CompanyListingsParser implements CsvParser<CompanyListing>{
       final symbol = e[0] ?? '';
       final name = e[1] ?? '';
       final exchange= e[2] ?? '';
-      final ipoDate= e[3] ?? '';
-      return CompanyListing(symbol: symbol, name: name, exchange: exchange, ipoDate: ipoDate);
-    }).where((e) => e.symbol.isNotEmpty&& e.name.isNotEmpty &&e.exchange.isNotEmpty && e.ipoDate.isNotEmpty)
+      final assetType= e[3] ?? '';
+      final ipoDate= e[4] ?? '';
+      return CompanyListing(symbol: symbol, name: name, exchange: exchange,assetType:assetType,
+          ipoDate: ipoDate);
+    }).where((e) => e.symbol.isNotEmpty&& e.name.isNotEmpty &&e.exchange.isNotEmpty &&
+        e.assetType.isNotEmpty&&e.ipoDate.isNotEmpty)
     // 상징 이름 교환 날짜등 원하는 null 아닌 데이터만
         .toList(); // 상징 이름 교환 날짜등 원하는 데이터를 리스트로 변환하기
   }
