@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_stocks_app/presentation/company_listings/company_listings_view_model.dart';
+import 'package:flutter_stocks_app/domain/repository/stock_repository.dart';
+import 'package:flutter_stocks_app/presentation/company_info/company_info_screen.dart';
+import 'package:flutter_stocks_app/presentation/company_info/company_info_view_model.dart';
+import 'package:flutter_stocks_app/presentation/company_listings/company_listings_action.dart';
+import 'package:flutter_stocks_app/presentation/company_info/company_listings_view_model.dart';
 import 'package:provider/provider.dart';
 
 class CompanyListingsScreen extends StatelessWidget {
@@ -16,9 +20,10 @@ class CompanyListingsScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 30),
               child: TextField(
-                onChanged:(query){
-                  //TODO: 쿼리를 이용해서 검색
-                } ,
+                onChanged: (query) {
+                  viewModel.onAction(
+                      CompanyListingsAction.onSearchQueryChange(query));
+                },
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -43,20 +48,38 @@ class CompanyListingsScreen extends StatelessWidget {
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () async {
-                  // TODO:  새로고침
+                  viewModel.onAction(const CompanyListingsAction.refresh());
                 },
                 child: ListView.builder(
                     itemCount: state.companies.length,
                     itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      ListTile(
-                        title: Text(state.companies[index].name),
-                      ),
-                      Divider(color: Theme.of(context).colorScheme.secondary,),
-                    ],
-                  );
-                }),
+                      return Column(
+                        children: [
+                          ListTile(
+                            title: Text(state.companies[index].name),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  // 뷰모델 세팅
+                                  final repository = context.read<
+                                      StockRepository>(); // 블럭 스톡 레포지토리
+                                  final symbol = state.companies[index].symbol;
+                                  return ChangeNotifierProvider(
+                                    create: (_) =>
+                                        CompanyInfoViewModel(repository, symbol),
+                                    child: const CompanyInfoScreen(),
+                                  );
+                                }),
+                              );
+                            },
+                          ),
+                          Divider(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ],
+                      );
+                    }),
               ),
             ),
           ],
