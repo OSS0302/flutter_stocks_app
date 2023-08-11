@@ -9,7 +9,7 @@ class CompanyListingsParser implements CsvParser<CompanyListing>{
     List<List<dynamic>> csvValues = const CsvToListConverter().convert(csvString);
 
     //원하는 데이터를 조작해서 사용하기
-    csvValues.remove(0); // csv 파일의 0번쨰 파일이 삭제 되었다.
+    csvValues.removeAt(0); // csv 파일의 0번쨰 파일이 삭제 되었다.
 
     return csvValues.map((e) {
       final symbol = e[0] ?? '';
