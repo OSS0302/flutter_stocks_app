@@ -2,6 +2,7 @@ import 'package:flutter_stocks_app/data/csv/company_listings_parser.dart';
 import 'package:flutter_stocks_app/data/mapper/company_mapper.dart';
 import 'package:flutter_stocks_app/data/source/local/stock_dao.dart';
 import 'package:flutter_stocks_app/data/source/remote/stock_api.dart';
+import 'package:flutter_stocks_app/domain/model/company_info.dart';
 import 'package:flutter_stocks_app/domain/model/company_listing.dart';
 import 'package:flutter_stocks_app/domain/repository/stock_repository.dart';
 import 'package:flutter_stocks_app/util/result.dart';
@@ -44,5 +45,15 @@ class StockRepositoryImpl implements StockRepository{
   }catch (e){
     return Result.error(Exception('데이터 로드 실패 !!'));
   }
+  }
+
+  @override
+  Future<Result<CompanyInfo>> getCompanyInfo(String symbol)async {
+    try{
+      final dto = await _api.getCompanyInfo(symbol: symbol);
+      return Result.success(dto.toCompanyInfo());
+    }catch(e){
+      return Result.error(Exception('회사 정보 로드 실패 !:${e.toString()}'));
+    }
   }
 }
