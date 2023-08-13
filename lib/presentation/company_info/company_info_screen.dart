@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stocks_app/domain/model/company_info.dart';
+import 'package:flutter_stocks_app/presentation/company_info/company_info_state.dart';
 import 'package:flutter_stocks_app/presentation/company_info/company_info_view_model.dart';
+import 'package:flutter_stocks_app/presentation/company_info/components/stock_chart.dart';
 import 'package:provider/provider.dart';
 
 class CompanyInfoScreen extends StatelessWidget {
@@ -19,7 +21,7 @@ class CompanyInfoScreen extends StatelessWidget {
             if (state.isLoading)
               const Center(child: CircularProgressIndicator()),
             if (state.isLoading == false && state.errorMessage == null)
-              _buildBody(state.companyInfo!),
+              _buildBody( context ,state),
           ],
         ),
       ),
@@ -27,38 +29,58 @@ class CompanyInfoScreen extends StatelessWidget {
   }
 }
 
-Widget _buildBody(CompanyInfo companyInfo) {
+Widget _buildBody(BuildContext context ,CompanyInfoState state) {
   return Padding(
     padding: const EdgeInsets.all(16.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          companyInfo.name,
+          state.companyInfo!.name,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
         ),
-        Text(companyInfo.symbol,
-          style: const TextStyle(fontStyle: FontStyle.italic),),
+        Text(
+          state.companyInfo!.symbol,
+          style: const TextStyle(fontStyle: FontStyle.italic),
+        ),
         const Divider(),
         Text(
-          'Industry:${companyInfo.industry}',
-        style:  const TextStyle(
-          overflow: TextOverflow.ellipsis,
-        ),
+          'Industry:${state.companyInfo!.industry}',
+          style: const TextStyle(
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
         Text(
-            'Country:${companyInfo.country}',
-          style:  const TextStyle(
+          'Country:${state.companyInfo!.country}',
+          style: const TextStyle(
             overflow: TextOverflow.ellipsis,
           ),
         ),
         const Divider(),
-        Text(companyInfo.description,
+        Text(
+          state.companyInfo!.description,
           style: const TextStyle(fontSize: 12),
         ),
+        const SizedBox(height: 16),
+        const Text(
+          'Market Summary',
+          style:
+          TextStyle(
+              fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 16),
+       if(state.stockInfos.isNotEmpty) Padding(
+         padding: const EdgeInsets.all(8.0),
+         child: StockChart(
+           infos: state.stockInfos,
+           graphColor: Theme.of(context).colorScheme.primary,
+           textColor: Theme.of(context).colorScheme.onSurface,
+
+         ),
+       ),
       ],
     ),
   );
