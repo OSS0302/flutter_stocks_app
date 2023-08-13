@@ -3,7 +3,8 @@ import 'package:flutter_stocks_app/domain/repository/stock_repository.dart';
 import 'package:flutter_stocks_app/presentation/company_info/company_info_screen.dart';
 import 'package:flutter_stocks_app/presentation/company_info/company_info_view_model.dart';
 import 'package:flutter_stocks_app/presentation/company_listings/company_listings_action.dart';
-import 'package:flutter_stocks_app/presentation/company_info/company_listings_view_model.dart';
+import 'package:flutter_stocks_app/presentation/company_listings/company_listings_view_model.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 class CompanyListingsScreen extends StatelessWidget {
@@ -62,8 +63,7 @@ class CompanyListingsScreen extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(builder: (context) {
                                   // 뷰모델 세팅
-                                  final repository = context.read<
-                                      StockRepository>(); // 블럭 스톡 레포지토리
+                                  final repository = GetIt.instance<StockRepository>();// 블럭 스톡 레포지토리
                                   final symbol = state.companies[index].symbol;
                                   return ChangeNotifierProvider(
                                     create: (_) =>
