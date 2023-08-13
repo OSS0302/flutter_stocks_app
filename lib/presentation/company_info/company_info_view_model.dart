@@ -34,5 +34,23 @@ class  CompanyInfoViewModel with ChangeNotifier {
       } ,
     );
     notifyListeners(); // 이벤트 감지
+    // 주식 그래프 정보
+  final intradayInfo = await _repository.getIntradayInfo(symbol);
+  intradayInfo.when(
+    success: (infos) {
+      _state = state.copyWith(
+        stockInfos: infos,
+        isLoading: false,
+        errorMessage: null,
+      );
+    },
+    error: (e) {
+      _state = state.copyWith(
+          stockInfos: [],
+          isLoading: false,
+          errorMessage: e.toString(),
+      );
+    },
+  );
   }
 }
